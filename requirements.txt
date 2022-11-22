@@ -31,3 +31,10 @@ termcolor
 
 #data-transformers
 datasets
+
+#preprocessing
+nltk
+contractions
+
+# deep learning
+tensorflow
