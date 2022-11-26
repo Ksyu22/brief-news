@@ -10,7 +10,7 @@ import pandas as pd
 def get_articles(keyword):
 
     urls = get_urls(keyword)
-    articles = [CNN_scraper(url) for url in urls]
+    articles = [General_scraper(url) for url in urls]
     df = pd.DataFrame(articles)
 
     return df
