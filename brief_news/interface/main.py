@@ -6,7 +6,9 @@ import pandas as pd
 
 
 def get_articles(keyword):
-
+    """
+    This function uses the list of urls from the API and scrape the content from articles
+    """
     urls = get_urls(keyword)
     articles = [General_scraper(url) for url in urls]
     df = pd.DataFrame(articles)
@@ -15,14 +17,16 @@ def get_articles(keyword):
 
 
 def transfomer_summaries(data_frame):
-
+    """
+    This function returns summaries of extracted articles
+    """
     data_point = data_frame['article']
 
     summary = summary_t5_small(data_point)
 
-    return
+    return summary
 
-test_df, columns_df = get_articles('business')
+test_df = get_articles('business')
 sum = transfomer_summaries(test_df)
 
 print(sum)
