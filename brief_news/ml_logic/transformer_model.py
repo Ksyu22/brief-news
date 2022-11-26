@@ -10,8 +10,7 @@ def summary_t5_small(articles_list: pd.DataFrame) -> pd.DataFrame:
 
     summarization = pipeline(task='summarization')
 
-    article = articles_list[]
+    article=articles_list['articles'][0]
     result = summarization([article])
-    summarized_articles.append(result)
 
-    return summarized_articles
+    return result
