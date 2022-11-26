@@ -4,13 +4,8 @@ import requests
 #from newsapi import NewsApiClient
 from datetime import datetime
 from dotenv import load_dotenv, find_dotenv
-import os
 
 from bs4 import BeautifulSoup
-import re
-from itertools import chain
-from collections import Counter
-
 
 def CNN_scraper(url):
     """
