@@ -53,3 +53,10 @@ pypi_test:
 
 pypi:
 	@twine upload dist/* -u $(PYPI_USERNAME)
+
+# ----------------------------------
+#      PACKAGE ACTIONS
+# ----------------------------------
+
+run_api_scraper:
+	python -c 'from brief_news.interface.main import get_articles; get_articles("business")'
