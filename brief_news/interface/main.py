@@ -5,7 +5,7 @@ from brief_news.ml_logic.transformer_model import summary_t5_small
 import pandas as pd
 
 
-def get_articles(keyword, limit=1):
+def get_articles(keyword: str, limit=1) -> pd.DataFrame:
     """
     This function uses the list of urls from the API and scrape the content from articles
     """
@@ -16,20 +16,22 @@ def get_articles(keyword, limit=1):
     return df
 
 
-def transfomer_summaries(data_frame):
+def transfomer_summaries(data_frame: pd.DataFrame):
     """
     This function returns summaries of extracted articles
     """
-    data_point = data_frame['article']
+    data_point = data_frame
 
     summary = summary_t5_small(data_point)
 
     return summary
 
+
 test_df = get_articles('business')
 sum = transfomer_summaries(test_df)
-
 print(sum)
+print(type(sum))
+
 
 if __name__ == '__main__':
     print('ok')

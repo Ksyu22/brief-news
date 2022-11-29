@@ -50,19 +50,20 @@ def get_news(keyword):
 
 def get_urls(keyword, limit=10):
     """
-    This function will filter the output of the API resulting in a list 
-    of the URL's of the articles included in that output from NEWS API 
-    based on the keyword entered. 
+    This function will filter the output of the API resulting in a list
+    of the URL's of the articles included in that output from NEWS API
+    based on the keyword entered.
     """
-    
+
     api_result = get_news(keyword)
-    
+
     list_of_urls = []
-    
-    for i in range(0, len(api_result['articles'])):
-        
+
+
+    for i in range(len(api_result['articles'])):
+
         list_of_urls.append(api_result['articles'][i]['url'])
-    
+
     return list_of_urls[:limit]
 
 
@@ -120,17 +121,18 @@ def get_headlines_for_categories(category, country):
 
 def get_urls_for_categories(category, country='us', limit=10):
     """
-    This function will filter the output of "get_headlines_for_categories" resulting in a list 
-    of the URL's of the articles included in that output from NEWS API 
-    based on the category and country entered. 
+    This function will filter the output of "get_headlines_for_categories" resulting in a list
+    of the URL's of the articles included in that output from NEWS API
+    based on the category and country entered.
     """
-    
+
     api_result_for_category = get_headlines_for_categories(category, country)
-    
+
     list_of_urls_for_category = []
-    
-    for i in range(0, len(api_result_for_category['articles'])):
-        
+
+
+    for i in range(len(api_result_for_category['articles'])):
+
         list_of_urls_for_category.append(api_result_for_category['articles'][i]['url'])
-    
+
     return list_of_urls_for_category[:limit]
