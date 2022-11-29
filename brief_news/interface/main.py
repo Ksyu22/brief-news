@@ -37,5 +37,5 @@ if __name__ == '__main__':
     print('ok')
     # get_articles('business', 'us')
     df = get_articles('business')
-    summary = transfomer_summaries(df)
-    print(type(summary))
+    df = transfomer_summaries(df)
+    print(df)

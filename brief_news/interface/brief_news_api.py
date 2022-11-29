@@ -27,9 +27,7 @@ def transfomer_summaries(data_frame):
     """
     This function returns summaries of extracted articles
     """
-    data_point = data_frame['article']
-
-    summary = summary_t5_small(data_point)
+    summary = summary_t5_small(data_frame)
 
     return summary
 
@@ -40,6 +38,6 @@ def summarize(keyword, limit=1):
     using the transformer/model
     """
     df = get_articles(keyword, int(limit))
-    summary = transfomer_summaries(df)
+    df = transfomer_summaries(df)
 
-    return summary[0]
+    return df.to_dict('records')
