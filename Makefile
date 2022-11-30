@@ -60,3 +60,6 @@ pypi:
 
 run_api_scraper:
 	python -c 'from brief_news.interface.main import get_articles; get_articles("business")'
+
+run_transformer_summarizer:
+	python -c 'from brief_news.interface.main import transfomer_summaries; transfomer_summaries("business")'
