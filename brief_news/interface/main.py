@@ -16,21 +16,16 @@ def get_articles(keyword: str) -> pd.DataFrame:
     return df
 
 
-def transfomer_summaries(data_frame: pd.DataFrame):
+def transfomer_summaries(keyword: str) -> pd.DataFrame:
     """
     This function returns summaries of extracted articles
     """
-    data_point = data_frame
 
-    summary = summary_t5_small(data_point)
+    df_articles = get_articles(keyword)
+    summary = summary_t5_small(df_articles)
 
     return summary
 
-
-test_df = get_articles('business')
-sum = transfomer_summaries(test_df)
-print(sum)
-print(type(sum))
 
 
 if __name__ == '__main__':
