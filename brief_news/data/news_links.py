@@ -59,6 +59,7 @@ def get_urls(keyword, limit=10):
 
     list_of_urls = []
 
+
     for i in range(len(api_result['articles'])):
 
         list_of_urls.append(api_result['articles'][i]['url'])
@@ -128,6 +129,7 @@ def get_urls_for_categories(category, country='us', limit=10):
     api_result_for_category = get_headlines_for_categories(category, country)
 
     list_of_urls_for_category = []
+
 
     for i in range(len(api_result_for_category['articles'])):
 

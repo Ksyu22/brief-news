@@ -5,12 +5,12 @@ from brief_news.ml_logic.transformer_model import summary_t5_small
 import pandas as pd
 
 
-def get_articles(keyword: str) -> pd.DataFrame:
+def get_articles(keyword: str, limit=1) -> pd.DataFrame:
     """
     This function uses the list of urls from the API and scrape the content from articles
     """
-    urls = get_urls(keyword)
-    articles = [CNN_scraper(url) for url in urls]
+    urls = get_urls(keyword, limit)
+    articles = [General_scraper(url) for url in urls]
     df = pd.DataFrame(articles)
 
     return df
@@ -30,4 +30,7 @@ def transfomer_summaries(keyword: str) -> pd.DataFrame:
 
 if __name__ == '__main__':
     print('ok')
-    #get_articles('business', 'us')
+    # get_articles('business', 'us')
+    df = get_articles('business')
+    df = transfomer_summaries(df)
+    print(df)
