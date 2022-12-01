@@ -63,3 +63,6 @@ run_api_scraper:
 
 run_transformer_summarizer:
 	python -c 'from brief_news.interface.main import transfomer_summaries; transfomer_summaries("business")'
+
+run_preprocess_train:
+	python -c 'from brief_news.ml_logic.main_train import preprocess; preprocess("train")'
