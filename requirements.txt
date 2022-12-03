@@ -33,9 +33,14 @@ termcolor
 python-dotenv
 direnv
 
+#beautiful soup
+beautifulsoup4
 
-#data-transformers
-datasets
+#data-transformers not useful for package just for one notebook
+#datasets
+
+#tests
+httpx
 
 #preprocessing
 nltk
