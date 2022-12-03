@@ -22,6 +22,8 @@ google-cloud-storage
 mlflow
 s3fs
 google-cloud-bigquery<3.0.0
+fastapi
+uvicorn
 
 # utilities
 six>=1.14
@@ -29,6 +31,8 @@ joblib
 memoized-property
 termcolor
 python-dotenv
+direnv
+
 
 #data-transformers
 datasets
@@ -38,5 +42,5 @@ nltk
 contractions
 
 # deep learning
-tensorflow
+tensorflow==2.8
 transformers
