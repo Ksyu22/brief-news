@@ -6,8 +6,8 @@ ENV PYTHONUNBUFFERED True
 
 # Copy requirements.txt to the docker image and install packages
 COPY brief_news /brief_news
-COPY requirements.txt /
-COPY setup.py /
+COPY requirements.txt /requirements.txt
+COPY setup.py /setup.py
 RUN pip install --upgrade pip
 RUN pip install .
 
