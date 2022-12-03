@@ -68,10 +68,13 @@ def cleaning(dataset: pd.Series, remove_stopwords=True) -> list:
     return clean
 
 
-def adding_decoder_tokens(data: pd.Series) -> pd.Series:
+def preprocessing_target(dataset: pd.Series) -> pd.Series:
     """
     !!!Only for target sentences.
+    Cleaning target sentences.
     Adding special tokens for the decoder only to target string
     """
+    target_clean = cleaning(dataset)
+    target_preproc = pd.Series(target_clean).apply(lambda x : '_START_ '+ x + ' _END_')
 
-    return pd.Series(data).apply(lambda x : '_START_ '+ x + ' _END_')
+    return target_preproc
