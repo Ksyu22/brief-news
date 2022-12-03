@@ -83,7 +83,7 @@ def preprocessing_target(dataset: pd.Series) -> pd.Series:
     return target_preproc
 
 
-def tokenizing(data: list):
+def tokenizing(data: list) -> list:
 
     """
     This function will tokenize articles and summaries
