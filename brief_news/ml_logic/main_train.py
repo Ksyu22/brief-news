@@ -2,7 +2,7 @@
 import pandas as pd
 
 from brief_news.data.big_query import get_bq_chunk
-from brief_news.ml_logic.preprocessor import cleaning, preprocessing_target
+from brief_news.ml_logic.preprocessor import cleaning, preprocessing_target, tokenizing
 
 from brief_news.ml_logic.params import (CHUNK_SIZE,
                                       DATASET_SIZE,
@@ -35,7 +35,7 @@ def preprocess(source_type='train'):
 
     print('Chunk was extracted')
 
-    row_count += data_chunk.shape[0]
+    #row_count += data_chunk.shape[0]
 
     #checking if not test dataset cause will be used in evaluate preprocessing
     if source_type!='test':
@@ -43,12 +43,15 @@ def preprocess(source_type='train'):
         article_chunk_cleaned = cleaning(data_chunk['article'])
         highlight_chunk_cleaned = preprocessing_target(data_chunk['highlights'])
 
+        articles_tok = tokenizing(article_chunk_cleaned)
+
     print('Chunks were cleaned')
 
-    return article_chunk_cleaned, highlight_chunk_cleaned
+    return  article_chunk_cleaned, highlight_chunk_cleaned
 
 
-
+summ = preprocess()
+print(type(summ))
 
 if __name__ == '__main__':
     preprocess('train')
