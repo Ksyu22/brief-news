@@ -41,7 +41,7 @@ def get_news(keyword):
     date = datetime.today().strftime('%Y-%m-%d')
 
     # line of code to make the actual request based on the variables defined before
-    source_url = f'{base_url}q={keyword}&from="{date}"&sortBy={sort}&sources={sources}&searchIn={search_in}&apiKey={api_key}'
+    source_url = f'{base_url}q={keyword}&from={date}&sortBy={sort}&sources={sources}&searchIn={search_in}&apiKey={api_key}'
 
     news = requests.get(source_url, allow_redirects=True).json()
 
