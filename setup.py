@@ -13,5 +13,5 @@ setup(name='brief_news',
       test_suite='tests',
       # include_package_data: to install data from MANIFEST.in
       include_package_data=True,
-      scripts=['scripts/brief_news-run'],
+      #scripts=['scripts/brief_news-run'],
       zip_safe=False)

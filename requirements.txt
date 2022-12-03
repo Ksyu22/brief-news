@@ -22,6 +22,8 @@ google-cloud-storage
 mlflow
 s3fs
 google-cloud-bigquery<3.0.0
+fastapi
+uvicorn
 
 # utilities
 six>=1.14
@@ -29,13 +31,21 @@ joblib
 memoized-property
 termcolor
 python-dotenv
+direnv
 
-#data-transformers
-datasets
+#beautiful soup
+beautifulsoup4
+
+#data-transformers not useful for package just for one notebook
+#datasets
+
+#tests
+httpx
 
 #preprocessing
 nltk
 contractions
 
 # deep learning
-tensorflow
+tensorflow==2.8
+transformers
