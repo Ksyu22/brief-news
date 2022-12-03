@@ -13,9 +13,10 @@ def index():
     return{'ok': True}
 
 @app.get('/articles')
-def get_articles(keyword, limit=1):
+def get_articles_api(keyword: str, limit=1)-> dict:
     """
     This function uses the list of urls from the API and scrape the content from articles
+    Used for testing API endpoints - not used for creating summaries
     """
     urls = get_urls(keyword, int(limit))
     articles = [General_scraper(url) for url in urls]
@@ -23,7 +24,18 @@ def get_articles(keyword, limit=1):
 
     return df.to_dict('records')
 
-def transfomer_summaries(data_frame):
+def get_articles(keyword: str, limit=1) -> pd.DataFrame:
+    """
+    This function uses the list of urls from the API and scrape the content from articles
+    Used for generating summaries
+    """
+    urls = get_urls(keyword, int(limit))
+    articles = [General_scraper(url) for url in urls]
+    df = pd.DataFrame(articles)
+
+    return df
+
+def transfomer_summaries(data_frame: pd.DataFrame) -> pd.DataFrame:
     """
     This function returns summaries of extracted articles
     """
@@ -32,7 +44,7 @@ def transfomer_summaries(data_frame):
     return summary
 
 @app.get('/summarize')
-def summarize(keyword, limit=1):
+def summarize(keyword: str, limit=1) -> dict:
     """
     This function fetch an article from NewsAPI, scrape the web and summarize it
     using the transformer/model

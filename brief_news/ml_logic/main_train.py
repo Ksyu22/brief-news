@@ -44,10 +44,12 @@ def preprocess(source_type='train'):
         highlight_chunk_cleaned = preprocessing_target(data_chunk['highlights'])
 
         articles_tok = tokenizing(article_chunk_cleaned)
+        highlights_tok = tokenizing(highlight_chunk_cleaned)
+
 
     print('Chunks were cleaned')
 
-    return  article_chunk_cleaned, highlight_chunk_cleaned
+    return  articles_tok, highlights_tok
 
 
 summ = preprocess()
