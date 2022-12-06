@@ -53,3 +53,16 @@ pypi_test:
 
 pypi:
 	@twine upload dist/* -u $(PYPI_USERNAME)
+
+# ----------------------------------
+#      PACKAGE ACTIONS
+# ----------------------------------
+
+run_api_scraper:
+	python -c 'from brief_news.interface.main import get_articles; get_articles("business")'
+
+run_transformer_summarizer:
+	python -c 'from brief_news.interface.main import transfomer_summaries; transfomer_summaries("business")'
+
+run_preprocess_train:
+	python -c 'from brief_news.ml_logic.main_train import preprocess; preprocess("train")'
