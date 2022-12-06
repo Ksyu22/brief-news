@@ -4,7 +4,7 @@ from brief_news.data.news_links import get_urls, get_urls_for_categories, get_he
 from brief_news.data.scraper import General_scraper, CNN_scraper
 
 from brief_news.ml_logic.transformer_model import summary_t5_small, summary_bart_large
-from brief_news.data.big_query import get_bq_chunk
+# from brief_news.data.big_query import get_bq_chunk
 
 
 
@@ -33,6 +33,6 @@ def transfomer_summaries(keyword: str) -> pd.DataFrame:
 if __name__ == '__main__':
     print('ok')
     # get_articles('business', 'us')
-    # df = get_articles('business')
-    # df = transfomer_summaries(df)
-    # print(df)
+    df = get_articles('business')
+    df = transfomer_summaries('business')
+    print(df)
