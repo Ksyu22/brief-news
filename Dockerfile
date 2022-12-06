@@ -1,5 +1,6 @@
 # Use Python37
-FROM python:3.8.6-buster
+#FROM python:3.8.6-buster
+FROM tensorflow/tensorflow:2.9.1
 
 # Allow statements and log messages to immediately appear in the Knative logs
 ENV PYTHONUNBUFFERED True
