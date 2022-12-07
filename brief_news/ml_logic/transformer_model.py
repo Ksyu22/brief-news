@@ -1,5 +1,6 @@
 from itertools import chain
 from transformers import pipeline
+from params import HUGGING_API_TOKEN
 
 import os
 import tensorflow
@@ -46,7 +47,7 @@ def summary_bart_large(articles_list: pd.DataFrame) -> pd.DataFrame:
     """
     Function summarizes with facebook/bart-large-cnn
     """
-    hf_token = os.getenv('HUGGING_API_TOKEN')
+    hf_token = HUGGING_API_TOKEN
 
     headers = {"Authorization": f"Bearer {hf_token}"}
     API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
