@@ -10,6 +10,8 @@ from nltk.tokenize import word_tokenize
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
+from brief_news.ml_logic.params import MAX_LEN_SUM, MAX_LEN_TEXT
+
 
 def preprocessing(sentence: string, remove_stopwords=True) -> string:
 
@@ -65,10 +67,12 @@ def cleaning(dataset: pd.Series, remove_stopwords=True) -> list:
     """
 
     rmv_stop = remove_stopwords
-    clean = []
-    for text in dataset:
-        clean.append(preprocessing(text, remove_stopwords=rmv_stop))
+    clean = dataset.apply(preprocessing)
+    # clean = []
+    # for text in dataset:
+    #     clean.append(preprocessing(text, remove_stopwords=rmv_stop))
     return clean
+
 
 
 def preprocessing_target(dataset: pd.Series) -> pd.Series:
@@ -77,22 +81,7 @@ def preprocessing_target(dataset: pd.Series) -> pd.Series:
     Cleaning target sentences.
     Adding special tokens for the decoder only to target string
     """
-    target_clean = cleaning(dataset)
+    target_clean = cleaning(dataset, remove_stopwords=False)
     target_preproc = pd.Series(target_clean).apply(lambda x : '_START_ '+ x + ' _END_')
 
     return target_preproc
-
-
-def tokenizing(data: list) -> list:
-
-    """
-    This function will tokenize articles and summaries
-    """
-    # learning the dictionnary from train articles
-    tokenizer = Tokenizer()
-    tokenizer.fit_on_texts(list(data))
-
-    # Transforms each article/summary in articles to a sequence of integers.
-    train_tok = tokenizer.texts_to_sequences(data)
-    #X_val_tok = X_tokenizer.texts_to_sequences(X_val)
-    return train_tok

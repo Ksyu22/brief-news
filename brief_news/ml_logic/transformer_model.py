@@ -1,6 +1,6 @@
 from itertools import chain
 from transformers import pipeline
-from params import HUGGING_API_TOKEN
+from brief_news.ml_logic.params import HUGGING_API_TOKEN
 
 import os
 import tensorflow
