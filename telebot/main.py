@@ -8,27 +8,25 @@ from dictionary import get_info
 def start(update, context):
     '''This is to set up the introductory statement for the bot when the /start command is invoked.'''
     chat_id = update.effective_chat.id
-    context.bot.send_message(chat_id=chat_id, text="Hello there. Provide any English word and I will give you a bunch "
-                                                   "of information about it.")
+    context.bot.send_message(chat_id=chat_id, text="Hello there. Kindly provide number of the news category that you're interested in today.\n"
+                                                   "0-business, \n1-entertainment, \n2-general, \n3-health, \n4-science, \n5-sports, \n6-technology")
 
 
 
-def get_word_info(update, context):
-    '''This is to obtain the information of the word provided and format before presenting.'''
-    # get the word info
-    word_info = get_info(update.message.text)
+def get_summary_info(update, context):
+    '''This is to obtain the news summary for the chosen category and format before presenting.'''
+    news_df = get_info(update.message.text)
 
-    # If the user provides an invalid English word, return the custom response from get_info() and exit the function
-    if word_info.__class__ is str:
-        update.message.reply_text(word_info)
-        return
+    result_1, result_2 = '', ''
+    result_1 = result_1 + f"<b><u>{news_df['title'][0]}</u></b>" + '\n\n' + news_df['summary_text'][0]
+    result_2 = result_2 + f"<b><u>{news_df['title'][1]}</u></b>" + '\n\n' + news_df['summary_text'][1]
 
-    # get the word the user provided
-    word = word_info['word']
+    # If the result is invalid, return the custom response from get_info() and exit the function
+    if result_1.__class__ is str:
+        update.message.reply_text(result_1, parse_mode='HTML')
+        update.message.reply_text(result_2, parse_mode='HTML')
+    return
 
-    message = f"Word: {word}"
-
-    update.message.reply_text(message)
 
 
 def main():
@@ -44,7 +42,7 @@ def main():
 
     # invoke the get_word_info function when the user sends a message
     # that is not a command.
-    dispatcher.add_handler(MessageHandler(Filters.text, get_word_info))
+    dispatcher.add_handler(MessageHandler(Filters.text, get_summary_info))
 
     updater.start_polling()
     updater.idle()

@@ -1,19 +1,16 @@
-import requests
+# import requests
+from brief_news.interface.main import transfomer_summaries
 
-def get_info(word):
-    '''Get information from test API.'''
+def get_info(keyword):
+    '''Get summaries from the DS model.'''
 
-    url = 'https://api.dictionaryapi.dev/api/v2/entries/en/{}'.format(word)
+    mapping = {'0':'business',
+            '1':'entertainment',
+            '2':'general',
+            '3':'health',
+            '4':'science',
+            '5':'sports',
+            '6':'technology'}
 
-    response = requests.get(url)
-
-# return a custom response if an invalid word is provided
-    if response.status_code == 404:
-        error_response = 'We are not able to provide any information about your word. Please confirm that the word is ' \
-                         'spelled correctly or try the search again at a later time.'
-        return error_response
-
-    data = response.json()[0]
-
-    print(data)
-    return data
+    df = transfomer_summaries(mapping[keyword])
+    return df
