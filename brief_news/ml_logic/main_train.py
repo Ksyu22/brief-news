@@ -62,7 +62,7 @@ def preprocess(source_type='test'):
         for iter in range(ceil(n_rows / CHUNK_SIZE)):
 
                 article_chunk_cleaned = cleaning(data_chunk['article'])
-                highlight_chunk_cleaned = preprocessing_target(data_chunk['highlights'])
+                highlight_chunk_cleaned = preprocessing_target(data_chunk['highlights'], remove_stopwords=False)
 
                 whole_chunk = pd.DataFrame(list(zip(article_chunk_cleaned, highlight_chunk_cleaned)), columns=['article', 'highlights'])
 

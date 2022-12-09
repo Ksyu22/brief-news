@@ -32,14 +32,7 @@ def transfomer_summaries(keyword: str) -> pd.DataFrame:
 
 if __name__ == '__main__':
     print('ok')
-<<<<<<< HEAD
-    #get_articles('business', 'us')
-    df = get_articles('business')
-    df_sum = transfomer_summaries('business')
-    print(df_sum)
-=======
     # get_articles('business', 'us')
     df = get_articles('business')
     df = transfomer_summaries('business')
     print(df)
->>>>>>> c6c0cbf0c0fdfb737f0e18fcb4a016bdb28068af

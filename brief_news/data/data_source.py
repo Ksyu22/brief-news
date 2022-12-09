@@ -6,9 +6,8 @@ from brief_news.data.big_query import get_bq_chunk, save_bq_chunk
 
 from brief_news.ml_logic.params import (COLUMN_NAMES_RAW,
                                         DTYPES_RAW_OPTIMIZED,
-                                        DTYPES_RAW_OPTIMIZED_HEADLESS
+                                        DTYPES_RAW_OPTIMIZED_HEADLESS)
                                         #DTYPES_PROCESSED_OPTIMIZED
-                                        )
 
 
 def get_chunk(source_name: str,

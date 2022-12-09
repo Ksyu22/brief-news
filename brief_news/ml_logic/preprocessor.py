@@ -67,15 +67,12 @@ def cleaning(dataset: pd.Series, remove_stopwords=True) -> list:
     """
 
     rmv_stop = remove_stopwords
-    clean = dataset.apply(preprocessing)
-    # clean = []
-    # for text in dataset:
-    #     clean.append(preprocessing(text, remove_stopwords=rmv_stop))
+    clean = dataset.apply(preprocessing, remove_stopwords=rmv_stop)
     return clean
 
 
 
-def preprocessing_target(dataset: pd.Series) -> pd.Series:
+def preprocessing_target(dataset: pd.Series, remove_stopwords=False) -> pd.Series:
     """
     !!!Only for target sentences.
     Cleaning target sentences.
