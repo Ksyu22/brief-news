@@ -21,25 +21,25 @@ warnings.filterwarnings("ignore")
 
 
 def tokenization(train, val=None):
-    Tokenizer = Tokenizer()
-    Tokenizer.fit_on_texts(list(train))
-    train_tok = Tokenizer.texts_to_sequences(train)
+    tok = Tokenizer()
+    tok.fit_on_texts(list(train))
+    train_tok = tok.texts_to_sequences(train)
 
-    if val == None:
-        return train_tok, Tokenizer
+    if len(val)<1:
+        return train_tok, tok
 
-    val_tok = Tokenizer.texts_to_sequences(val)
+    val_tok = tok.texts_to_sequences(val)
 
-    return train_tok, val_tok, Tokenizer
+    return train_tok, val_tok, tok
 
-def padder(train_tok, max_len_text, val_tok=None):
+def padder(train_tok, maxlen, val_tok=[]):
     train_pad = pad_sequences(train_tok, dtype='float32',
-                                maxlen=max_len_text, padding='post')
-    if val_tok==None:
+                                maxlen=maxlen, padding='post')
+    if len(val_tok)<1:
         return train_pad
 
     val_pad = pad_sequences(val_tok, dtype='float32',
-                              maxlen=max_len_text, padding='post')
+                              maxlen=maxlen, padding='post')
 
     return train_pad, val_pad
 
@@ -98,18 +98,17 @@ def model_summ(latent_dim, max_len_text, X_vocab, y_vocab):
 
 def model_fit(model, X_train_pad, X_val_pad, y_train_pad, y_val_pad, max_len_summary):
 
-    model = model.fit(
-                        [X_train_pad,y_train_pad[:,:-1]],
-                        y_train_pad.reshape(len(y_train_pad),
-                        max_len_summary, 1)[:,1:],
-                        batch_size=30,
-                        epochs=10,
-                        #callbacks=[es],
-                        validation_data=([X_val_pad,y_val_pad[:,:-1]],
-                                         y_val_pad.reshape(y_val_pad.shape[0],
-                                                           y_val_pad.shape[1], 1)[:,1:])
-                        #validation_split=0.1
-                        )
+    history = model.fit(
+        [X_train_pad,y_train_pad[:,:-1]],
+        y_train_pad.reshape(len(y_train_pad), max_len_summary, 1)[:,1:],
+        batch_size=30,
+        epochs=10,
+        #callbacks=[es],
+        validation_data=([X_val_pad,y_val_pad[:,:-1]],
+                         y_val_pad.reshape(y_val_pad.shape[0],
+                                           y_val_pad.shape[1], 1)[:,1:])
+        #validation_split=0.1,
+        )
 
     return model
 
@@ -127,7 +126,7 @@ def setup_model(X_train, X_val, y_train, y_val,
     target_word_index=y_tokenizer.word_index
 
     X_train_pad, X_val_pad = padder(X_train_tok, max_len_text, val_tok=X_val_tok)
-    y_train_pad, y_val_pad = padder(y_train_tok, max_len_text, val_tok=y_val_tok)
+    y_train_pad, y_val_pad = padder(y_train_tok, max_len_summary, val_tok=y_val_tok)
 
     data_pad = [X_train_pad, X_val_pad, y_train_pad, y_val_pad]
 
@@ -198,8 +197,8 @@ def decode_sequence(input_seq, encoder_model, decoder_model, target_word_index,
             decoded_sentence += ' '+sampled_token
 
             # Exit condition: either hit max length or find stop word.
-            if (sampled_token == 'end' or len(decoded_sentence.split()) >= (max_len_summary-1)):
-                stop_condition = True
+        if (sampled_token == 'end' or len(decoded_sentence.split()) >= (max_len_summary-1)):
+            stop_condition = True
 
         # Update the target sequence (of length 1).
         target_seq = np.zeros((1,1))
@@ -260,7 +259,10 @@ if __name__ == '__main__':
 
     #generating summary
     for i in range(len(X_val_pad)):
-        print("Review:",seq2text(X_val_pad[i]))
-        print("Original summary:",seq2summary(y_val_pad[i]))
-        print("Predicted summary:",decode_sequence(X_val_pad[i].reshape(1,max_len_text)))
+        print("Review:",seq2text(X_val_pad[i], reverse_source_word_index))
+        print("Original summary:",seq2summary(y_val_pad[i], target_word_index, reverse_target_word_index))
+        print("Predicted summary:",decode_sequence(X_val_pad[i].reshape(1,max_len_text),
+                                                encoder_model, decoder_model,
+                                                target_word_index, reverse_target_word_index,
+                                                max_len_summary))
         print("\n")
