@@ -69,3 +69,6 @@ run_preprocess_train:
 
 run_test_model_train:
 	python -c 'from brief_news.ml_logic.NN_model import test_train_model; test_train_model()'
+
+run_model_train:
+	python -c 'from brief_news.ml_logic.NN_model import full_train; full_train()'
