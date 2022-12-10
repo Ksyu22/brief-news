@@ -37,7 +37,7 @@ def get_news(keyword):
     #web sources to be used
     sources = "cnn" #domains where we would like to search
 
-    #web sources to be used
+    #language parameter
     language = "en"
 
     #date where the search shall start, default via datetime.today: the current date when the API request is made
