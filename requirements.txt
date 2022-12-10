@@ -33,7 +33,7 @@ termcolor
 python-dotenv
 direnv
 
-#beautiful soup
+# beautiful soup
 beautifulsoup4
 
 #data-transformers not useful for package just for one notebook
@@ -49,3 +49,6 @@ contractions
 # deep learning
 tensorflow==2.8
 transformers
+
+# telebot
+python-telegram-bot

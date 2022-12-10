@@ -4,16 +4,16 @@ from brief_news.data.news_links import get_urls, get_urls_for_categories, get_he
 from brief_news.data.scraper import General_scraper, CNN_scraper
 
 from brief_news.ml_logic.transformer_model import summary_t5_small
-from brief_news.data.big_query import get_bq_chunk
+# from brief_news.data.big_query import get_bq_chunk
 
 
 
-def get_articles(keyword: str, limit=1) -> pd.DataFrame:
+def get_articles(keyword: str, limit=2) -> pd.DataFrame:
     """
     This function uses the list of urls from the API and scrape the content from articles
     """
     urls = get_urls(keyword, limit)
-    articles = [General_scraper(url) for url in urls]
+    articles = [CNN_scraper(url) for url in urls]
     df = pd.DataFrame(articles)
 
     return df
@@ -33,7 +33,7 @@ def transfomer_summaries(keyword: str) -> pd.DataFrame:
 
 if __name__ == '__main__':
     print('ok')
-    # get_articles('business', 'us')
+    # get_articles('business')
     # df = get_articles('business')
-    # df = transfomer_summaries(df)
+    # df = transfomer_summaries('business')
     # print(df)
