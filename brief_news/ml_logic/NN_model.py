@@ -1,5 +1,5 @@
 from brief_news.ml_logic.preprocessor import cleaning
-from brief_news.data.big_query import get_bq_chunk
+from brief_news.data.big_query import get_bq_chunk, get_bq_chunk_processed
 
 import numpy as np
 from keras import backend as K
@@ -251,6 +251,98 @@ def fetch_model():
 
     return encoder_model, decoder_model, target_word_index,\
         reverse_target_word_index, max_len_summary
+
+def test_train_model():
+        #initializing the variables
+    latent_dim = 500
+    max_len_text = 150
+    max_len_summary = 10
+
+    #data
+    # train = get_bq_chunk('train', 0, 100)
+    # val = get_bq_chunk('validation', 0, 100)
+    # test = get_bq_chunk('test', 0, 100)
+
+    #preprocessing
+    # X_train = cleaning(train.article)
+    # y_train = cleaning(train.highlights, remove_stopwords=False)
+
+    # X_val = cleaning(val.article)
+    # y_val = cleaning(val.highlights, remove_stopwords=False)
+
+    # X_test = cleaning(test.highlights, remove_stopwords=False)
+    # y_test = cleaning(test.article)
+
+    # y_train = adding_decoder_tokens(y_train)
+    # y_val = adding_decoder_tokens(y_val)
+
+    train = get_bq_chunk_processed('train', 0, 100)
+    val = get_bq_chunk_processed('validation', 0, 100)
+    test = get_bq_chunk_processed('test', 0, 100)
+
+    X_train = train.article
+    y_train = train.highlights
+
+    X_val = val.article
+    y_val = val.highlights
+
+    X_test = test.highlights
+    y_test = test.article
+
+    # y_train = adding_decoder_tokens(y_train)
+    # y_val = adding_decoder_tokens(y_val)
+
+
+    ## Setting up the model and all the environment
+    encoder_model, decoder_model, target_word_index,\
+    reverse_target_word_index, reverse_source_word_index,\
+    max_len_summary, data_pad = setup_model(X_train, X_val, y_train, y_val,
+                latent_dim, max_len_text, max_len_summary)
+
+    [X_train_pad, X_val_pad, y_train_pad, y_val_pad] = data_pad
+
+    #generating summary
+    for i in range(5):
+        print("Review:",seq2text(X_val_pad[i], reverse_source_word_index))
+        print("Original summary:",seq2summary(y_val_pad[i], target_word_index, reverse_target_word_index))
+        print("Predicted summary:",decode_sequence(X_val_pad[i].reshape(1,max_len_text),
+                                                encoder_model, decoder_model,
+                                                target_word_index, reverse_target_word_index,
+                                                max_len_summary))
+        print("\n")
+
+
+def full_train():
+
+    #initializing the variables
+    latent_dim = 500
+    max_len_text = 150
+    max_len_summary = 10
+
+    #data
+    train = get_bq_chunk_processed('train', 0, 145000)
+    val = get_bq_chunk_processed('validation', 0, 13368)
+    test = get_bq_chunk_processed('test', 0, 11490)
+
+    X_train = train.article
+    y_train = train.highlights
+
+    X_val = val.article
+    y_val = val.highlights
+
+    X_test = test.highlights
+    y_test = test.article
+
+    y_train = adding_decoder_tokens(y_train)
+    y_val = adding_decoder_tokens(y_val)
+
+    ## Setting up the model and all the environment
+    encoder_model, decoder_model, target_word_index,\
+    reverse_target_word_index, reverse_source_word_index,\
+    max_len_summary, data_pad = setup_model(X_train, X_val, y_train, y_val,
+                latent_dim, max_len_text, max_len_summary)
+
+    [X_train_pad, X_val_pad, y_train_pad, y_val_pad] = data_pad
 
 
 if __name__ == '__main__':
