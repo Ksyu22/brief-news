@@ -1,6 +1,8 @@
+import os
+from dotenv import load_dotenv
+load_dotenv()
 """Readme :  pip install python-telegram-bot --upgrade"""
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
-from config import BOT_TOKEN
 from dictionary import get_info
 
 
@@ -19,12 +21,15 @@ def get_summary_info(update, context):
 
     result_1, result_2 = '', ''
     result_1 = result_1 + f"<b><u>{news_df['title'][0]}</u></b>" + '\n\n' + news_df['summary_text'][0]
-    result_2 = result_2 + f"<b><u>{news_df['title'][1]}</u></b>" + '\n\n' + news_df['summary_text'][1]
+
+    if len(news_df)>=2:
+        result_2 = result_2 + f"<b><u>{news_df['title'][1]}</u></b>" + '\n\n' + news_df['summary_text'][1]
 
     # If the result is invalid, return the custom response from get_info() and exit the function
     if result_1.__class__ is str:
         update.message.reply_text(result_1, parse_mode='HTML')
-        update.message.reply_text(result_2, parse_mode='HTML')
+        if len(news_df)>=2:
+            update.message.reply_text(result_2, parse_mode='HTML')
     return
 
 
@@ -32,7 +37,7 @@ def get_summary_info(update, context):
 def main():
     '''Main app function which runs constantly when this .py file is executed.'''
 
-    telegram_bot_token = BOT_TOKEN
+    telegram_bot_token = os.environ.get("BOT_TOKEN")
 
     updater = Updater(token=telegram_bot_token, use_context=True)
     dispatcher = updater.dispatcher

@@ -13,7 +13,7 @@ def get_articles(keyword: str, limit=2) -> pd.DataFrame:
     This function uses the list of urls from the API and scrape the content from articles
     """
     urls = get_urls(keyword, limit)
-    articles = [General_scraper(url) for url in urls]
+    articles = [CNN_scraper(url) for url in urls]
     df = pd.DataFrame(articles)
 
     return df
