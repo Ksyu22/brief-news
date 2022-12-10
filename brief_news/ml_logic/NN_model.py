@@ -6,13 +6,15 @@ from keras import backend as K
 # from tensorflow.keras import optimizers
 import numpy as np
 import pandas as pd
+import pickle
+
 
 from bs4 import BeautifulSoup
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from nltk.corpus import stopwords
 from tensorflow.keras.layers import Input, LSTM, Embedding, Dense, Concatenate, TimeDistributed, Attention
-from tensorflow.keras.models import Model
+from tensorflow.keras.models import Model, load_model
 from tensorflow.keras.callbacks import EarlyStopping
 
 import warnings
@@ -167,6 +169,10 @@ def setup_model(X_train, X_val, y_train, y_val,
 
     decoder_lstm(dec_emb2, initial_state=[decoder_state_input_h, decoder_state_input_c])
 
+    output_variables = [target_word_index, reverse_target_word_index, max_len_summary]
+
+    dump_model(encoder_model, decoder_model, output_variables)
+
     return encoder_model, decoder_model, target_word_index, \
            reverse_target_word_index, reverse_source_word_index, \
            max_len_summary, data_pad
@@ -223,6 +229,29 @@ def seq2text(input_seq, reverse_source_word_index):
             newString=newString+reverse_source_word_index[i]+' '
     return newString
 
+def dump_model(encoder_model, decoder_model, output_variables):
+
+    encoder_model.save('encoder', include_optimizer=True)
+    decoder_model.save('decoder', include_optimizer=True)
+    file = open('variables_pkl', 'wb')
+    pickle.dump(output_variables, file)
+    file.close()
+
+def fetch_model():
+    encoder_model = load_model('encoder')
+    decoder_model = load_model('decoder')
+
+    file = open('variables_pkl', 'rb')
+    variables = pickle.load(file)
+    file.close()
+
+    target_word_index = variables[0]
+    reverse_target_word_index = variables[1]
+    max_len_summary = variables[2]
+
+    return encoder_model, decoder_model, target_word_index,\
+        reverse_target_word_index, max_len_summary
+
 
 if __name__ == '__main__':
 
@@ -258,7 +287,7 @@ if __name__ == '__main__':
     [X_train_pad, X_val_pad, y_train_pad, y_val_pad] = data_pad
 
     #generating summary
-    for i in range(len(X_val_pad)):
+    for i in range(5):
         print("Review:",seq2text(X_val_pad[i], reverse_source_word_index))
         print("Original summary:",seq2summary(y_val_pad[i], target_word_index, reverse_target_word_index))
         print("Predicted summary:",decode_sequence(X_val_pad[i].reshape(1,max_len_text),
