@@ -33,6 +33,6 @@ def transfomer_summaries(keyword: str) -> pd.DataFrame:
 if __name__ == '__main__':
     print('ok')
     # get_articles('business', 'us')
-    df = get_articles('business')
-    df = transfomer_summaries('business')
+    #df = get_articles('sports')
+    df = transfomer_summaries('sports')
     print(df)

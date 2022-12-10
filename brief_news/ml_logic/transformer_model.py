@@ -53,6 +53,7 @@ def summary_bart_large(articles_list: pd.DataFrame) -> pd.DataFrame:
     API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
 
     # summarizing articles into 150 words, more parameters can be added
-    articles_list['summary_text'] = articles_list['article'].apply(lambda article: query({'inputs':article, "parameters": {"max_length": 150}}, API_URL, headers)[0]['summary_text'])
+    # summarizing only articles that have more than 10 words
+    articles_list['summary_text'] = articles_list['article'].apply(lambda article: query({'inputs':article, "parameters": {"max_length": 150}}, API_URL, headers)[0]['summary_text'] if len(article.split()) > 10 else None)
 
     return articles_list
