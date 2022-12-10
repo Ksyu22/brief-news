@@ -37,11 +37,14 @@ def get_news(keyword):
     #web sources to be used
     sources = "cnn" #domains where we would like to search
 
+    #web sources to be used
+    language = "en"
+
     #date where the search shall start, default via datetime.today: the current date when the API request is made
     date = datetime.today().strftime('%Y-%m-%d')
 
     # line of code to make the actual request based on the variables defined before
-    source_url = f'{base_url}q={keyword}&from={date}&sortBy={sort}&sources={sources}&searchIn={search_in}&apiKey={api_key}'
+    source_url = f'{base_url}q={keyword}&language={language}&from={date}&sortBy={sort}&sources={sources}&searchIn={search_in}&apiKey={api_key}'
 
     news = requests.get(source_url, allow_redirects=True).json()
 
