@@ -19,6 +19,10 @@ def get_summary_info(update, context):
     '''This is to obtain the news summary for the chosen category and format before presenting.'''
     news_df = get_info(update.message.text)
 
+    if news_df.empty:
+        update.message.reply_text('No articles exist for the selected category.')
+        return
+
     result_1, result_2 = '', ''
     result_1 = result_1 + f"<b><u>{news_df['title'][0]}</u></b>" + '\n\n' + news_df['summary_text'][0]
 

@@ -33,14 +33,13 @@ def transfomer_summaries(keyword: str) -> pd.DataFrame:
 
     df_articles = get_articles(keyword)
 
-    if df_articles != None:
-        summary = summary_bart_large(df_articles)
+    if df_articles.empty:
+        print(Fore.BLUE + "\nThere are no summaries." + Style.RESET_ALL)
 
-        return summary
+        return df_articles
 
-    print(Fore.BLUE + "\nThere are no summaries." + Style.RESET_ALL)
-
-    return None
+    summary = summary_bart_large(df_articles)
+    return summary
 
 
 if __name__ == '__main__':
