@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 load_dotenv()
 """Readme :  pip install python-telegram-bot --upgrade"""
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
-from dictionary import get_info
+from brief_news.telebot.dictionary import get_info
 
 
 
