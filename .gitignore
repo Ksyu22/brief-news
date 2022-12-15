@@ -9,3 +9,4 @@ raw_data/
 .envrc
 .env
 .env.yaml
+.gcloudignore

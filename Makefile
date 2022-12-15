@@ -72,3 +72,6 @@ run_test_model_train:
 
 run_model_train:
 	python -c 'from brief_news.ml_logic.NN_model import full_train; full_train()'
+
+run_telebot:
+	python -c 'from brief_news.telebot.main import main; main()'
