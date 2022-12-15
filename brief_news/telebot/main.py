@@ -23,6 +23,8 @@ def get_summary_info(update, context):
         update.message.reply_text('No articles exist for the selected category.')
         return
 
+    news_df.reset_index(inplace=True)
+
     result_1, result_2 = '', ''
     result_1 = result_1 + f"<b><u>{news_df['title'][0]}</u></b>" + '\n\n' + news_df['summary_text'][0]
 
