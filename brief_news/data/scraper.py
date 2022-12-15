@@ -23,7 +23,7 @@ def CNN_scraper(url):
     text = ''.join(text).replace('\xa0', ' ')
     title = soup.title.string.split('|')[0]
 
-    return {'title': title, 'article': text, 'id': 0, 'orig_id': 0}
+    return {'title': title, 'article': text, 'id': 0, 'orig_id': 0, 'url': url}
 
 
 def DailyMail_scraper(url):
@@ -42,19 +42,19 @@ def DailyMail_scraper(url):
     text = ''.join(text).replace('\xa0', ' ')
     title = soup.title.string.split('|')[0]
 
-    return {'title': title, 'article': text, 'id': 0, 'orig_id': 0}
+    return {'title': title, 'article': text, 'id': 0, 'orig_id': 0, 'url': url}
 
 
 def General_scraper(url):
     """
     Input: 'str'
     Output: 'dict'
-    
+
     The function recieve an url, fetch for the html and uses BS4 to extract the paragraph tags. Then it
     counts the number of times that each paragraph is repeated and uses the most repeated (in a news must be text)
     to scrape the news from the website. It returns a dictionary with the title and the text of the news.
     """
-    
+
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
     text = soup.find_all('p')
@@ -69,4 +69,4 @@ def General_scraper(url):
     text = ' '.join(text).replace('\xa0', ' ')
     title = soup.title.string.split('|')[0]
 
-    return {'title': title, 'article': text, 'id': 0, 'orig_id': 0}
+    return {'title': title, 'article': text, 'id': 0, 'orig_id': 0, 'url': url}
