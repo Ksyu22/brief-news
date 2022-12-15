@@ -15,6 +15,7 @@ def CNN_scraper(url):
     The function recieve an url (must be from CNN), fetch for the html and uses BS4 to extract the paragraph
     with the class='paragraph inline-placeholder' which contains the text. Then clean and merge the strings.
     It returns a dictionary with the title and the text of the news
+    If there was no article we return None as a value of 'article' key.
     """
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
@@ -23,7 +24,13 @@ def CNN_scraper(url):
     text = ''.join(text).replace('\xa0', ' ')
     title = soup.title.string.split('|')[0]
 
-    return {'title': title, 'article': text, 'id': 0, 'orig_id': 0, 'url': url}
+
+    row = {'title': title, 'article': text, 'id': 0, 'orig_id': 0, 'url': url}
+
+    if row['article'] == '':
+        row['article'] = None
+
+    return row
 
 
 def DailyMail_scraper(url):

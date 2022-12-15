@@ -33,7 +33,7 @@ termcolor
 python-dotenv
 direnv
 
-#beautiful soup
+# beautiful soup
 beautifulsoup4
 
 #data-transformers not useful for package just for one notebook
@@ -41,11 +41,15 @@ beautifulsoup4
 
 #tests
 httpx
+colorama
 
 #preprocessing
 nltk
 contractions
 
 # deep learning
-tensorflow==2.8
+#tensorflow==2.8 #fo not need for docker image
 transformers
+
+# telebot
+python-telegram-bot

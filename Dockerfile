@@ -1,5 +1,6 @@
 # Use Python37
-FROM python:3.8.6-buster
+#FROM python:3.8.6-buster
+FROM tensorflow/tensorflow:2.9.1
 
 # Allow statements and log messages to immediately appear in the Knative logs
 ENV PYTHONUNBUFFERED True
@@ -15,4 +16,6 @@ RUN pip install .
 WORKDIR /brief_news
 
 # Use uvicorn
-CMD uvicorn interface.brief_news_api:app --host 0.0.0.0 --port $PORT
+#CMD uvicorn interface.brief_news_api:app --host 0.0.0.0 --port $PORT
+EXPOSE 8080
+CMD python telebot/main.py
