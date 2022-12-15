@@ -25,11 +25,11 @@ def get_summary_info(update, context):
 
     news_df.reset_index(inplace=True)
 
-    result_1, result_2 = '', ''
-    result_1 = result_1 + f"<b><u>{news_df['title'][0]}</u></b>" + '\n\n' + news_df['summary_text'][0]
+    result_1 = '' + f'''<a href="{news_df['url'][0]}"><b><u>{news_df['title'][0]}</u></b></a>''' + '\n\n' + news_df['summary_text'][0]
+
 
     if len(news_df)>=2:
-        result_2 = result_2 + f"<b><u>{news_df['title'][1]}</u></b>" + '\n\n' + news_df['summary_text'][1]
+        result_2 = '' + f'''<a href="{news_df['url'][1]}"><b><u>{news_df['title'][1]}</u></b></a>''' + '\n\n' + news_df['summary_text'][1]
 
     # If the result is invalid, return the custom response from get_info() and exit the function
     if result_1.__class__ is str:
