@@ -18,4 +18,4 @@ WORKDIR /brief_news
 # Use uvicorn
 #CMD uvicorn interface.brief_news_api:app --host 0.0.0.0 --port $PORT
 EXPOSE 8080
-CMD python telebot/main.py
+CMD ["python", "<main file>.py"]
