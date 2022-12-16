@@ -303,12 +303,21 @@ def test_train_model():
 
     #generating summary
     for i in range(5):
-        print("Review:",seq2text(X_val_pad[i], reverse_source_word_index))
-        print("Original summary:",seq2summary(y_val_pad[i], target_word_index, reverse_target_word_index))
-        print("Predicted summary:",decode_sequence(X_val_pad[i].reshape(1,max_len_text),
+        # print("Review:",seq2text(X_val_pad[i], reverse_source_word_index))
+        # print("Original summary:",seq2summary(y_val_pad[i], target_word_index, reverse_target_word_index))
+        # print("Predicted summary:",decode_sequence(X_val_pad[i].reshape(1,max_len_text),
+        #                                         encoder_model, decoder_model,
+        #                                         target_word_index, reverse_target_word_index,
+        #                                         max_len_summary))
+
+        review = seq2text(X_val_pad[i], reverse_source_word_index)
+        orig_sum = seq2summary(y_val_pad[i], target_word_index, reverse_target_word_index)
+        pred_sum = decode_sequence(X_val_pad[i].reshape(1,max_len_text),
                                                 encoder_model, decoder_model,
                                                 target_word_index, reverse_target_word_index,
-                                                max_len_summary))
+                                                max_len_summary)
+        results = pd.DataFrame(list(zip(review, orig_sum, pred_sum)), columns=['review', 'orig_sum', 'pred_sum'])
+        results.to_csv('test.csv')
         print("\n")
 
 

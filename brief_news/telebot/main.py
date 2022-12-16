@@ -36,8 +36,6 @@ def get_summary_info(update, context):
             update.message.reply_text(result_2, parse_mode='HTML')
     return
 
-
-
 def main():
     '''Main app function which runs constantly when this .py file is executed.'''
 
