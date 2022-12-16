@@ -8,3 +8,5 @@ raw_data/
 .env
 .envrc
 .env
+.env.yaml
+.gcloudignore

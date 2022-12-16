@@ -64,5 +64,14 @@ run_api_scraper:
 run_transformer_summarizer:
 	python -c 'from brief_news.interface.main import transfomer_summaries; transfomer_summaries("business")'
 
-run_preprocess_train:
+run_preprocess:
 	python -c 'from brief_news.ml_logic.main_train import preprocess; preprocess("train")'
+
+run_test_model_train:
+	python -c 'from brief_news.ml_logic.NN_model import test_train_model; test_train_model()'
+
+run_model_train:
+	python -c 'from brief_news.ml_logic.NN_model import full_train; full_train()'
+
+run_telebot:
+	python -c 'from brief_news.telebot.main import main; main()'

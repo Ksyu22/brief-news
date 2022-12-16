@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from brief_news.data.news_links import get_urls, get_urls_for_categories, get_headlines_for_categories, get_list_of_API_news_providers
 from brief_news.data.scraper import General_scraper, CNN_scraper
 
-from brief_news.ml_logic.transformer_model import summary_t5_small
+from brief_news.ml_logic.transformer_model import summary_t5_small, summary_bart_large
 
 import pandas as pd
 
@@ -39,7 +39,7 @@ def transfomer_summaries(data_frame: pd.DataFrame) -> pd.DataFrame:
     """
     This function returns summaries of extracted articles
     """
-    summary = summary_t5_small(data_frame)
+    summary = summary_bart_large(data_frame)
 
     return summary
 

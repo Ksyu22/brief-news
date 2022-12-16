@@ -41,13 +41,14 @@ beautifulsoup4
 
 #tests
 httpx
+colorama
 
 #preprocessing
 nltk
 contractions
 
 # deep learning
-tensorflow==2.8
+#tensorflow==2.8 #fo not need for docker image
 transformers
 
 # telebot

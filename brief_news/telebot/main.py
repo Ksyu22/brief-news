@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 load_dotenv()
 """Readme :  pip install python-telegram-bot --upgrade"""
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
-from dictionary import get_info
+from brief_news.telebot.dictionary import get_info
 
 
 
@@ -19,6 +19,12 @@ def get_summary_info(update, context):
     '''This is to obtain the news summary for the chosen category and format before presenting.'''
     news_df = get_info(update.message.text)
 
+    if news_df.empty:
+        update.message.reply_text('No articles exist for the selected category.')
+        return
+
+    news_df.reset_index(inplace=True)
+
     result_1, result_2 = '', ''
     result_1 = result_1 + f"<b><u>{news_df['title'][0]}</u></b>" + '\n\n' + news_df['summary_text'][0]
 
@@ -31,8 +37,6 @@ def get_summary_info(update, context):
         if len(news_df)>=2:
             update.message.reply_text(result_2, parse_mode='HTML')
     return
-
-
 
 def main():
     '''Main app function which runs constantly when this .py file is executed.'''
