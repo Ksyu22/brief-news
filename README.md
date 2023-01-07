@@ -1,8 +1,6 @@
 # Data analysis
 - Document here the project: brief-news
-- Description: Project Description
-- Data Source:
-- Type of analysis:
+- Description: In our project we offer people an opportunity to consume just the essential information from the news that they are interested in. Users will receive news highlights on their Telegram on a scheduled basis.
 
 Please document the project the better you can.
 
