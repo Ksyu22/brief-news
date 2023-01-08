@@ -1,0 +1,1 @@
+gcloud functions deploy telegram_bot2 --region=europe-central2 --runtime python38 --trigger-http --project $PROJECT --entry-point handler --max-instances=3 --memory=128 --timeout=3 --env-vars-file .env.yaml

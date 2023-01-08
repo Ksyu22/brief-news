@@ -12,5 +12,12 @@ def get_info(keyword):
             '5':'sports',
             '6':'technology'}
 
-    df = transfomer_summaries(mapping[keyword])
-    return df
+    if keyword in mapping:
+
+        df = transfomer_summaries(mapping[keyword])
+        return df
+
+    else:
+        # return general if category not in a list
+        df = transfomer_summaries(mapping['2'])
+        return df

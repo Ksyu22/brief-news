@@ -24,7 +24,8 @@ def CNN_scraper(url):
     text = ''.join(text).replace('\xa0', ' ')
     title = soup.title.string.split('|')[0]
 
-    row = {'title': title, 'article': text, 'id': 0, 'orig_id': 0}
+
+    row = {'title': title, 'article': text, 'id': 0, 'orig_id': 0, 'url': url}
 
     if row['article'] == '':
         row['article'] = None
@@ -48,7 +49,7 @@ def DailyMail_scraper(url):
     text = ''.join(text).replace('\xa0', ' ')
     title = soup.title.string.split('|')[0]
 
-    return {'title': title, 'article': text, 'id': 0, 'orig_id': 0}
+    return {'title': title, 'article': text, 'id': 0, 'orig_id': 0, 'url': url}
 
 
 def General_scraper(url):
@@ -75,4 +76,4 @@ def General_scraper(url):
     text = ' '.join(text).replace('\xa0', ' ')
     title = soup.title.string.split('|')[0]
 
-    return {'title': title, 'article': text, 'id': 0, 'orig_id': 0}
+    return {'title': title, 'article': text, 'id': 0, 'orig_id': 0, 'url': url}

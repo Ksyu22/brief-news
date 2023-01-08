@@ -1,0 +1,2 @@
+SUMMARIZE = '/summarize'
+ARTICLES = '/articles'

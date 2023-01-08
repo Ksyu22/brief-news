@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 from dotenv import load_dotenv, find_dotenv
 import os
 
@@ -41,7 +41,8 @@ def get_news(keyword):
     language = "en"
 
     #date where the search shall start, default via datetime.today: the current date when the API request is made
-    date = datetime.today().strftime('%Y-%m-%d')
+    last_24 = datetime.now() - timedelta(hours=24)
+    date = last_24.strftime('%Y-%m-%d')
 
     # line of code to make the actual request based on the variables defined before
     source_url = f'{base_url}q={keyword}&language={language}&from={date}&sortBy={sort}&sources={sources}&searchIn={search_in}&apiKey={api_key}'
@@ -62,6 +63,7 @@ def get_urls(keyword, limit=10):
 
     list_of_urls = []
 
+    #print(api_result['articles'])
 
     for i in range(len(api_result['articles'])):
 

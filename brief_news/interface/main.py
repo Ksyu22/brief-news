@@ -8,7 +8,7 @@ from brief_news.ml_logic.transformer_model import summary_bart_large
 
 
 
-def get_articles(keyword: str, limit=10) -> pd.DataFrame:
+def get_articles(keyword: str, limit=2) -> pd.DataFrame:
     """
     This function uses the list of urls from the API and scrape the content from articles
     """
@@ -23,15 +23,15 @@ def get_articles(keyword: str, limit=10) -> pd.DataFrame:
         return df
 
     print(Fore.BLUE + "\nThere are no articles on this subject." + Style.RESET_ALL)
-    return None
+    return pd.DataFrame()
 
 
-def transfomer_summaries(keyword: str) -> pd.DataFrame:
+def transfomer_summaries(keyword: str, limit=2) -> pd.DataFrame:
     """
     This function returns summaries of extracted articles
     """
 
-    df_articles = get_articles(keyword)
+    df_articles = get_articles(keyword, limit)
 
     if df_articles.empty:
         print(Fore.BLUE + "\nThere are no summaries." + Style.RESET_ALL)
@@ -46,5 +46,5 @@ if __name__ == '__main__':
     print('ok')
     # get_articles('business', 'us')
     #df = get_articles('sports')
-    df = transfomer_summaries('sports')
+    df = transfomer_summaries('business')
     print(df)
